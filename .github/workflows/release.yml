@@ -19,7 +19,8 @@ jobs:
       with:
         configuration: "configuration.json"
         ignorePreReleases: "true"
-        token: ${{ secrets.GTOKEN }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
     
     - name: Make release
       id: release

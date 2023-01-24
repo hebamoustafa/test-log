@@ -32,4 +32,3 @@ jobs:
         body: ${{ steps.generatechangelog.outputs.changelog }}
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN_WRITE }}
-     

@@ -4,29 +4,29 @@ on:
     types: [closed]
 jobs:
   release:
-    runs-on: ubuntu-latest
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v2
-          with:
-            fetch-depth: 200
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 200
 
-        - name: Build Changelog
-          id: github_release
-          uses: mikepenz/release-changelog-builder-action@v3
-          if: startsWith(github.ref, 'refs/tags/')
-          with:
-            configuration: ".github/configuration.json"
-            ignorePreReleases: ${{ !contains(github.ref, '-') }}
-          env:
-            GITHUB_TOKEN: ${{ secrets.TOKEN }}
+      - name: Build Changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v3
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          configuration: ".github/configuration.json"
+          ignorePreReleases: ${{ !contains(github.ref, '-') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
-        - name: Release
-          uses: softprops/action-gh-release@v1
-          if: startsWith(github.ref, 'refs/tags/')
-          with:
-            body: ${{steps.github_release.outputs.changelog}}
-            prerelease: ${{ contains(github.event.inputs.version, '-rc') || contains(github.event.inputs.version, '-b') || contains(github.event.inputs.version, '-a') }}
-            files: artifacts/*
-          env:
-            GITHUB_TOKEN: ${{ secrets.TOKEN }}
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          body: ${{steps.github_release.outputs.changelog}}
+          prerelease: ${{ contains(github.event.inputs.version, '-rc') || contains(github.event.inputs.version, '-b') || contains(github.event.inputs.version, '-a') }}
+          files: artifacts/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}

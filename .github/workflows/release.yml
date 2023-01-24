@@ -31,5 +31,5 @@ jobs:
         name: ${{ github.ref_name }}
         body: ${{ steps.generatechangelog.outputs.changelog }}
       env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.TOKEN_WRITE }}
      

@@ -30,6 +30,16 @@
       "on_property": "mergedAt"
     },
     "template": "${{CHANGELOG}}\n\n<details>\n<summary>Uncategorized</summary>\n\n${{UNCATEGORIZED}}\n</details>",
-    "pr_template": "- ${{TITLE}}\n   - PR: #${{NUMBER}}"
+    "pr_template": "- ${{TITLE}}\n   - PR: #${{NUMBER}}",
+    "tag_resolver": {
+      "method": "semver",
+      "filter": {
+        "pattern": "v(.+)",
+        "flags": "gu"
+      }
+    },
+    "base_branches": [
+      "main"
+    ]
   }
   
